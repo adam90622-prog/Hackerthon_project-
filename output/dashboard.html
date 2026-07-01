@@ -254,7 +254,7 @@ footer.pagefoot code{font-family:var(--font-mono);background:var(--surface-alt);
     <div class="stat-row">
       <div class="stat"><div class="n">18</div><div class="l">콘텐츠 시드</div><div class="c">신규RN·간호학생·경력RN × 공감·정보·유머 각 2건</div></div>
       <div class="stat"><div class="n">54</div><div class="l">완성 콘텐츠</div><div class="c">카드뉴스·카카오·뉴스레터 3채널 × 18건, 글자수·용어반영 18/18 PASS</div></div>
-      <div class="stat"><div class="n">41→72</div><div class="l">발행 캘린더</div><div class="c">원본+재발행 41건 스냅샷 → 신규 소재 반영 72건까지 재스케줄링</div></div>
+      <div class="stat"><div class="n">41→72</div><div class="l">발행 캘린더</div><div class="c">원본+재발행 41건(콘텐츠 완성) → 신규 소재 반영 72건까지 재스케줄링(주제·발행일만 배정, 본문은 미작성)</div></div>
       <div class="stat"><div class="n">100%</div><div class="l">정제 재현성</div><div class="c">50행 더미 데이터 재실행, 바이트 단위 동일 결과 확인</div></div>
     </div>
   </div>
@@ -344,6 +344,13 @@ footer.pagefoot code{font-family:var(--font-mono);background:var(--surface-alt);
           <div class="pass-card"><div class="seg" style="color:#2f6fa8">신규RN</div><div class="arrow">k=16 <span class="badge pass">PASS 4.4일</span></div></div>
           <div class="pass-card"><div class="seg" style="color:#7a5cb0">간호학생</div><div class="arrow">k=14 <span class="badge pass">PASS 5.0일</span></div></div>
           <div class="pass-card"><div class="seg" style="color:#a1653a">경력RN</div><div class="arrow">k=14 <span class="badge pass">PASS 5.0일</span></div></div>
+        </div>
+        <div class="note" style="margin-top:16px;">
+          <strong>주의 — PASS로 넘어간 소재는 아직 "제목만" 있는 상태</strong>
+          <ul>
+            <li>실제 카드뉴스·카카오·뉴스레터 본문이 완성된 건 여전히 원본 18건뿐입니다. <code>classified_new_articles.csv</code>의 신규 소재 49건은 주제·타깃·발행일만 배정된 "시드 뼈대"로, 이번 라운드에서는 콘텐츠 본문을 쓰지 않았습니다.</li>
+            <li>즉 이 PASS는 "충분한 상시 소재를 확보하면 캐던스 수식이 성립한다"는 걸 수치로 증명한 것이고, 다음 단계는 이 49건 중 우선순위 높은 것부터 실제 3종 콘텐츠를 채워 넣는 작업입니다.</li>
+          </ul>
         </div>
       </section>
 
