@@ -14,6 +14,17 @@
 ---
 (여기에 기록이 추가됩니다)
 
+**[2026-07-01] keywords_required 결측 보완 — id 12**
+- 결정 내용: id 12 ("국시 끝나고 우리가 하고 싶은 것들", 간호학생) keywords_required = "국시,면허,RN"
+- 선택한 이유: 1순위(topic 내 용어 매칭): 국시 / 2순위(ref_event '간호사 국가시험 합격발표' -> industry-news.md '간호사 국가시험 (국시)' 문단, topic tense=post): 후보=RN, SBAR, 프리셉터 / 채택=RN, SBAR / 수동 판단(override) 적용 전 자동 결과: 국시, RN, SBAR / 수동 판단(override) 최종: 국시, 면허, RN
+- 대안으로 고려했던 것: 규칙 1~3의 각 단계 후보 전체 (위 근거 참고), ref_event='간호사 국가시험 합격발표'
+
+**[2026-07-01] 중복 topic 플래그 — DUP01**
+- 결정 내용: "실습 나가서 듣는 웃픈 한마디 모음" — id 11(간호학생), id 17(경력RN) 를 DUP01로 플래그, 관점 차별화 판단 부여
+- 선택한 이유: 간호학생 행 = '당하는' 실습생 1인칭 시점(선배·프리셉터에게 듣는 말), 경력RN 행 = '돌아보는' 선배 시점(후배 시절 회상 + 지금 후배에게 하는 말)으로 관점을 분리
+- 대안으로 고려했던 것: topic 문자열 자체를 타깃별로 다르게 바꾸는 방안 — 이번 정제 단계에서는 원문 topic은 유지하고 관점 판단만 남김 (콘텐츠 생성은 다음 턴)
+
+
 **[2026-07-01] 범주값·구분자 오타 정규화**
 - id 32 [tone]: "유모형" -> "유머형" (오타 추정(편집거리 1): '유모형' -> '유머형')
 - id 33 [tone]: "정보 형" -> "정보형" (공백 제거: '정보 형' -> '정보형')
@@ -189,3 +200,17 @@
 - 알려진 한계(설계 노트): 이번 데이터셋의 time_bound_fact 2건(id 16, NEW-43)이 공교롭게 둘 다 ref_event도 함께 갖고 있어, check_cadence.count_evergreen_by_target()/reschedule.py의 상시 순환 풀에는 애초에 들어가지 않는다(ref_event가 있으면 순환 후보에서 제외되는 기존 규칙이 먼저 적용됨). 따라서 "만료된 time_bound_fact를 재발행 후보에서 제외" 로직은 이번 실제 실행(TODAY=2026-07-01, 두 항목 모두 만료 전)에서는 관찰되지 않는다(0건 제외). 로직 자체는 스크래치 환경에서 ref_event 없는 합성 time_bound_fact 항목 3개로 단위 검증해 정상 동작을 확인함(만료된 것만 정확히 제외, 안 만료된 것과 evergreen은 포함)
 - 대안으로 고려했던 것: expires_after를 모든 recurring_seasonal에도 채우는 방안 — 스펙상 "expires_after는 time_bound_fact인 경우만" 채우도록 명시돼 있어 recurring_seasonal은 빈칸 유지(대신 재사용 시 갱신 필요성은 content_type 자체로 표현됨). superseded_by를 id 16의 후속 콘텐츠로 임의 지정 — 아직 실제로 작성되지 않은 콘텐츠를 가리킬 수 없어 빈칸 유지, 대신 "하위법령 확정 후 새 아티클 필요"라는 권고만 이 항목에 남김
 
+
+
+**[2026-07-01] 삭제된 nursevillage_content_seeds_cleaned.csv 복원**
+- 결정 내용: output_content_set.md가 참조하는 nursevillage_content_seeds_cleaned.csv가 커밋되지 않은 상태로 삭제되어 있어 복원함. Basic 산출물 자체는 재검증 결과 이상 없음.
+- 선택한 이유: output 파일의 데이터 개요 섹션이 이 파일을 근거 문서로 명시하고 있어, 없으면 제출물의 근거 추적이 끊김
+- 대안으로 고려했던 것: 다른 삭제/수정 파일(context/nursing-calendar.md, data/dummy_seeds_50.csv, output/전체보기.md)은 Standard 단계에서 별도로 다루기로 하고 이번엔 건드리지 않음
+
+**[2026-07-01] Standard 산출물 재구성 — 스펙 범위 초과분 제거**
+- 결정 내용: 발행 이력 시뮬레이션·미래 재스케줄링·신규 기사 자동분류·재발행 알고리즘(70÷k 기반 확정구간 등)은 Notion 원문 스펙이 요구하지 않는 범위로 판단해 제거함(classified_new_articles.csv, reschedule.py, published_log.csv, rescheduled-calendar.md 등). standard-guide.md·pipeline-usage.md는 재사용 파이프라인 + 발행 캘린더(원본 18건) + 채널별 지표 + 브랜드보이스 가이드로 압축
+- 선택한 이유: 스펙(Standard 가산 항목)이 요구하는 것은 "파이프라인 재현성"과 "발행 캘린더·채널별 지표·브랜드보이스 가이드"뿐이며, 그 이상의 시뮬레이션·자동분류·재발행 알고리즘은 채점 범위 밖에서 문서·코드 복잡도만 키우는 과설계로 판단
+- 후속 처리: 캐던스 FAIL 인사이트(타깃당 상시 콘텐츠 k값 부족)는 폐기하지 않고 challenge-strategy.md의 전략안 근거 데이터로 이관
+
+**[2026-07-01] output/dashboard.html을 콘텐츠 3종 세트 + KPI 리포트로 교체**
+- 결정 내용: output/dashboard.html을 스펙 범위 밖이었던 기존 내용에서 output_content_set.md 18건 전문 + kpi-results.json 4개 지표를 렌더링하는 정적 HTML로 교체(scripts/build_report.py). app.py는 이 파일을 그대로 읽으므로 Streamlit 데모 구조는 변경 없음. 목업 파일(sample-*.html) 3종은 dashboard.html로 대체되어 삭제.
