@@ -22,4 +22,4 @@ st.markdown(
     </style>""",
     unsafe_allow_html=True,
 )
-components.html(DASHBOARD_HTML, height=1400, scrolling=True)
+components.html(DASHBOARD_HTML, height=2000, scrolling=True)

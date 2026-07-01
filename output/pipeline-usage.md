@@ -1,12 +1,24 @@
 ## 신규 담당자용 3줄 요약
 
-1. 새 시드 CSV 파일을 data/ 폴더에 넣으세요
-2. Claude Code를 열고 "새 시드 파일 정제하고 3종 콘텐츠 만들어줘"라고 입력하세요
-3. output 폴더에서 결과 파일을 확인하세요
+1. 터미널에서 한 줄이면 끝: `bash scripts/full_pipeline.sh data/새파일.csv` (Claude Code CLI가 설치·로그인되어 있어야 합니다)
+2. 터미널이 어렵다면, Claude Code를 열고 "새 시드 파일로 전체 파이프라인 실행해줘"라고 말만 해도 동일하게 진행됩니다
+3. 완료되면 output 폴더에서 output_content_set.md·kpi-results.json·dashboard.html을 확인하세요
 
 # 파이프라인 사용법 — 정제 + 캐던스 검증 (Standard: 재사용 파이프라인)
 
-## 한 번에 실행
+## 정말 한 번에 실행 (전 과정 자동)
+
+```bash
+bash scripts/full_pipeline.sh data/nursevillage_content_seeds.csv
+```
+
+이 한 줄이 정제 → 캐던스 점검 → 3종 콘텐츠 생성(Claude Code 호출) → 형식 검증 →
+KPI 측정 → HTML 리포트까지 6단계를 전부 순서대로 실행합니다. 사람이 개입할 부분은
+없습니다(콘텐츠 생성 단계도 스크립트 안에서 Claude Code를 자동 호출합니다).
+Claude Code CLI가 없다면, 3단계만 채팅창에서 "새 시드로 3종 콘텐츠 만들어줘"라고 직접
+요청한 뒤 이 스크립트를 다시 실행하면 4~6단계가 이어집니다.
+
+## 부분적으로만 실행하고 싶다면 (정제 + 캐던스 점검만)
 
 ```bash
 python scripts/run_pipeline.py <seeds_csv> [cleaned_csv] [--target-days 14] [--reuse-days 70]

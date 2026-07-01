@@ -7,11 +7,13 @@
 
 새 seeds CSV가 들어와도 정제 → 캐던스 점검 → (Basic과 동일한 절차로) 3종 생성까지
 같은 품질로 재현됩니다. 사용법은 [pipeline-usage.md](pipeline-usage.md) 참고.
+`bash scripts/full_pipeline.sh <csv>` 한 줄이면 아래 스크립트가 전부 순서대로 실행됩니다.
 
 - `scripts/clean_seeds.py`: 결측·오타·중복 정제
 - `scripts/check_cadence.py`: 타깃별 발행 주기 가능 여부 점검
-- `scripts/run_pipeline.py`: 위 둘을 순서대로 실행하는 래퍼
 - `scripts/validate_content.py`: 생성된 3종 세트의 글자수·키워드 반영 검증
+- `scripts/measure_kpi.py`: 생성 성공률·브랜드보이스 유지도·전문용어 사용도·속도 단축률 4종 KPI 실측
+- `scripts/build_report.py`: 콘텐츠 3종 + 운영 가이드 + KPI를 담은 output/dashboard.html 생성
 
 ## 2. 발행 캘린더
 

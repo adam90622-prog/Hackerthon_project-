@@ -1,27 +1,30 @@
 """KPI 측정 스크립트 — Problem 04 다이버즈
-4개 지표를 output/output_content_set.md의 18건 콘텐츠에 대해 측정합니다:
+4개 지표를 output/output_content_set.md의 콘텐츠에 대해 측정합니다:
 1. 생성 성공률 (채널별 포맷 조건 충족 여부)
 2. 브랜드보이스 유지도 (호칭 병기·이모지 팔레트 준수, 카카오 이모지 미사용 준수)
 3. 전문용어 사용도 (keywords_required 반영률)
 4. 속도 단축률 (가정 기반 추정치 — 아래 상수 주석에 근거 명시)
 
 결과는 output/kpi-results.json 과 콘솔 표로 출력됩니다.
+
+사용법:
+    python scripts/measure_kpi.py                          # 기본 CSV(nursevillage_content_seeds_cleaned.csv) 기준
+    python scripts/measure_kpi.py data/새파일_cleaned.csv    # 새 seeds로 재현할 때
 """
 import re
 import csv
 import json
+import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
 CONTENT_MD = BASE / "output" / "output_content_set.md"
-CSV_PATH = BASE / "data" / "nursevillage_content_seeds_cleaned.csv"
+DEFAULT_CSV = BASE / "data" / "nursevillage_content_seeds_cleaned.csv"
+CSV_PATH = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else DEFAULT_CSV
 
 EMOJI_PALETTE = set("🤍😊🥲💪🌱😆🙈😅🎉")
 HONOR_MAP = {"신규RN": "신규 RN 선생님", "간호학생": "간호학생 선생님", "경력RN": "경력RN 선생님"}
 
-# 속도 단축률 가정 (실측 타이머 값이 아니라 문제 정의서 상 목표치 비교):
-# - 수작업 기준: problem.md "1건 2~3시간" -> 중간값 150분
-# - AI 파이프라인 기준: context/company-info.md "5분 내 초안" 목표치
 MANUAL_MINUTES_PER_SET = 150
 AI_MINUTES_PER_SET = 5
 
@@ -119,4 +122,8 @@ if __name__ == "__main__":
         print(f"\n=== {section} ===")
         for k, v in data.items():
             print(f"{k}: {v}")
-    print(f"\n저장됨: {out_path}")
+    try:
+        csv_display = CSV_PATH.relative_to(BASE)
+    except ValueError:
+        csv_display = CSV_PATH
+    print(f"\n저장됨: {out_path} (기준 CSV: {csv_display})")
