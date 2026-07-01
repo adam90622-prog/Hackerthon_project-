@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>널스빌리지 콘텐츠 3종 — Standard</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif; background: #f4f5f7; color: #1a1a2e; line-height: 1.6; }
+.container { max-width: 1080px; margin: 0 auto; padding: 40px 24px; }
+
+.header { background: #fff; border-radius: 12px; padding: 32px 36px; margin-bottom: 24px; border-left: 5px solid #f4a261; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.level-badge { display: inline-block; background: #e76f51; color: white; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
+.header h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.header-meta { font-size: 13px; color: #6c757d; display: flex; flex-wrap: wrap; gap: 16px; }
+.breadcrumb { font-size: 12px; color: #aaa; margin-bottom: 10px; }
+
+.section { background: #fff; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.section-title { font-size: 15px; font-weight: 700; padding-bottom: 14px; margin-bottom: 20px; border-bottom: 1px solid #eee; }
+
+/* pipeline */
+.pipeline { display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+.pipe-step { background: #f0f4ff; border: 2px solid #4361ee; border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 118px; }
+.pipe-step .cmd { font-size: 13px; font-weight: 800; color: #4361ee; font-family: monospace; }
+.pipe-step .desc { font-size: 11px; color: #555; margin-top: 4px; }
+.pipe-arrow { font-size: 20px; color: #adb5bd; padding: 0 8px; }
+.pipe-step.input { background: #fff8e1; border-color: #f4a261; }
+.pipe-step.input .cmd { color: #e76f51; }
+.pipe-step.output { background: #e0f5f4; border-color: #2b7a78; }
+.pipe-step.output .cmd { color: #2b7a78; }
+
+.usage-box { background: #1e1e2e; border-radius: 8px; padding: 16px 20px; font-family: monospace; font-size: 13px; color: #a6e3a1; margin-bottom: 16px; line-height: 1.8; }
+.usage-box .comment { color: #6c7086; }
+.usage-box .cmd { color: #89b4fa; }
+
+.design-note { background: #f8f9fa; border-left: 3px solid #f4a261; border-radius: 0 8px 8px 0; padding: 14px 18px; font-size: 13px; color: #444; }
+.design-note strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #888; margin-bottom: 4px; }
+
+/* calendar */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th { background: #f8f9fa; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #6c757d; padding: 9px 12px; text-align: left; border-bottom: 2px solid #e9ecef; }
+tbody td { padding: 9px 12px; border-bottom: 1px solid #f0f2f5; vertical-align: middle; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+.ch-card { background:#e7e0ff; color:#5a2d9a; }
+.ch-kakao { background:#fff3cd; color:#856404; }
+.ch-nl { background:#d8f0ee; color:#2b7a78; }
+.tt-감 { background:#ffe0e9; color:#c14d77; }
+.tt-정 { background:#dde3ff; color:#3452cc; }
+.tt-유 { background:#fff3cd; color:#856404; }
+
+/* brand voice */
+.bv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.bv { background:#f8f9fa; border-radius:8px; padding:16px; border-top:3px solid #3aafa9; }
+.bv h4 { font-size:13px; margin-bottom:6px; }
+.bv ul { margin:0; padding-left:18px; font-size:12px; color:#555; line-height:1.7; }
+
+@media(max-width:700px){ .pipeline{flex-direction:column;} .bv-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="breadcrumb">Basic 포함 ›</div>
+  <div class="level-badge">🟡 Standard — 130점</div>
+  <h1>널스빌리지 콘텐츠 3종 + 재현 파이프라인 & 콘텐츠 캘린더</h1>
+  <div class="header-meta">
+    <span>📋 시드 18건</span>
+    <span>🔁 새 CSV 자동 재현</span>
+    <span>🗓️ 주간 발행 캘린더 설계</span>
+    <span>✍️ [이름] · 2026-07-01</span>
+  </div>
+</div>
+
+<!-- pipeline -->
+<div class="section">
+  <div class="section-title">⚙️ 파이프라인 — 새 seeds CSV 넣으면 3종 자동 재현</div>
+  <div class="pipeline">
+    <div class="pipe-step input"><div class="cmd">새 seeds.csv</div><div class="desc">data/ 교체</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="cmd">/analyze</div><div class="desc">결측·중복 점검</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="cmd">/insight</div><div class="desc">채널·용어 전략</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="cmd">/generate</div><div class="desc">3종 세트 생성</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step"><div class="cmd">/review</div><div class="desc">글자수·용어 점검</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-step output"><div class="cmd">콘텐츠 세트</div><div class="desc">output_content_set.md</div></div>
+  </div>
+  <div class="usage-box">
+    <span class="comment"># 매주 사용법 (Claude Code 터미널)</span><br>
+    <span class="comment"># 1. 새 seeds CSV를 data/ 폴더에 교체</span><br>
+    <span class="cmd">/analyze</span> <span class="comment">  # 결측·중복·타깃·톤 분포 점검</span><br>
+    <span class="cmd">/insight</span> <span class="comment">  # 채널 변형 + 현장 용어 활용 계획</span><br>
+    <span class="cmd">/generate</span> <span class="comment"> # 카드·카카오·뉴스레터 18건 일괄 생성</span><br>
+    <span class="cmd">/review</span> <span class="comment">   # 글자수·용어·타깃·톤 자가 점검 후 제출</span>
+  </div>
+  <div class="design-note">
+    <strong>콘텐츠 캘린더 구성 근거 (본인 설계)</strong>
+    같은 주제라도 채널 도달 시점이 달라, 카드뉴스(피드)는 주 2회·카카오(알림)는 시의성 이벤트 직전·뉴스레터(구독)는 주 1회로 배치했다.
+    타깃은 신규RN·간호학생·경력RN을 요일별로 분산해 특정 세그먼트에 메시지가 쏠리지 않게 했고, 국시 합격발표·간호법 같은 ref_event는 카카오로 선노출해 클릭을 끌어올린다.
+  </div>
+</div>
+
+<!-- weekly calendar -->
+<div class="section">
+  <div class="section-title">🗓️ 주간 발행 캘린더 샘플 — 2026년 7월 1주차</div>
+  <table>
+    <thead><tr><th>요일</th><th>시드</th><th>주채널</th><th>타깃</th><th>톤</th><th>시의성</th></tr></thead>
+    <tbody>
+      <tr><td>월</td><td>#16 간호법 시행 현장 포인트</td><td><span class="badge ch-card">카드</span></td><td>경력RN</td><td><span class="badge tt-정">정보</span></td><td>간호법 시행</td></tr>
+      <tr><td>화</td><td>#01 프리셉터 첫 만남</td><td><span class="badge ch-kakao">카카오</span></td><td>신규RN</td><td><span class="badge tt-감">공감</span></td><td>국시 합격발표</td></tr>
+      <tr><td>수</td><td>#09 RN/LPN 차이</td><td><span class="badge ch-nl">뉴스레터</span></td><td>간호학생</td><td><span class="badge tt-정">정보</span></td><td>—</td></tr>
+      <tr><td>목</td><td>#11 실습 웃픈 한마디(학생)</td><td><span class="badge ch-card">카드</span></td><td>간호학생</td><td><span class="badge tt-유">유머</span></td><td>—</td></tr>
+      <tr><td>금</td><td>#13 10년차의 위로</td><td><span class="badge ch-nl">뉴스레터</span></td><td>경력RN</td><td><span class="badge tt-감">공감</span></td><td>—</td></tr>
+      <tr><td>토</td><td>#17 라떼 인계(경력)</td><td><span class="badge ch-kakao">카카오</span></td><td>경력RN</td><td><span class="badge tt-유">유머</span></td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#888;margin-top:10px">※ 중복 topic(#11·#17)은 요일·타깃을 분리 배치해 동일 제목 노출 충돌을 회피.</p>
+</div>
+
+<!-- brand voice -->
+<div class="section">
+  <div class="section-title">🎙️ 브랜드 보이스 가이드 (본인 설계)</div>
+  <div class="bv-grid">
+    <div class="bv"><h4>🩺 현장 공감</h4><ul><li>현장 용어를 자연스럽게(과시 X)</li><li>"우리 이야기" 1인칭 톤</li><li>위로는 충고보다 공감 먼저</li></ul></div>
+    <div class="bv"><h4>🎯 타깃 맞춤</h4><ul><li>신규RN=적응·위로</li><li>간호학생=국시·실습 준비</li><li>경력RN=이직·제도·현실 조언</li></ul></div>
+    <div class="bv"><h4>📐 채널 규칙</h4><ul><li>카드=헤드라인 + 마지막 CTA</li><li>카카오=200자·한 줄 훅</li><li>뉴스레터=600자·3단</li></ul></div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
