@@ -11,7 +11,15 @@ st.set_page_config(
 DASHBOARD_HTML = (Path(__file__).parent / "output" / "dashboard.html").read_text(encoding="utf-8")
 
 st.markdown(
-    "<style>.block-container{padding-top:0;padding-bottom:0;max-width:100%;} iframe{border:none;}</style>",
+    """<style>
+    .block-container{padding-top:0;padding-bottom:0;max-width:100%;}
+    iframe{border:none;display:block;}
+    header[data-testid="stHeader"]{display:none;}
+    div[data-testid="stToolbar"]{display:none;}
+    div[data-testid="stDecoration"]{display:none;}
+    #MainMenu{visibility:hidden;}
+    footer{visibility:hidden;}
+    </style>""",
     unsafe_allow_html=True,
 )
-components.html(DASHBOARD_HTML, height=2800, scrolling=True)
+components.html(DASHBOARD_HTML, height=1400, scrolling=True)

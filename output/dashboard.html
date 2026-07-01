@@ -883,4 +883,19 @@ document.querySelectorAll("[data-dl]").forEach(btn=>{
     else downloadText("nursevillage_콘텐츠3종_통합.md",buildAllDoc());
   });
 });
+
+/* ---------- auto-resize host iframe (e.g. Streamlit components.html) to fit content ---------- */
+function resizeHostFrame(){
+  try{
+    if (window.frameElement) {
+      window.frameElement.style.height = document.documentElement.scrollHeight + "px";
+    }
+  }catch(e){/* cross-origin host, ignore */}
+}
+window.addEventListener("load", resizeHostFrame);
+if (window.ResizeObserver){
+  new ResizeObserver(resizeHostFrame).observe(document.body);
+} else {
+  setInterval(resizeHostFrame, 500);
+}
 </script>
